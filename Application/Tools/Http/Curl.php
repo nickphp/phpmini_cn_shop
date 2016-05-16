@@ -1,5 +1,5 @@
 <?php
-namespace Wshop\Tools\Http;
+namespace MShop\Tools\Http;
 /**
  * 类名称:curl
  * 1.支持单个get,post请求

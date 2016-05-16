@@ -6,10 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>MShop云商管理系统-演示</title>
     <link href="/static/bootstrap3.3.5/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/artdialog/ui-dialog.css">
     <!--[if lt IE 9]>
       <script src="/static/bootstrap3.3.5/js/html5shiv3.7.2.min.js"></script>
       <script src="/static/bootstrap3.3.5/js/respond1.4.2.min.js"></script>
     <![endif]-->
+    <style type="text/css">
+        .table-line-bg {background:#F2F2F2;}
+    </style>
   </head>
   <body>
     <div class="container-fluid">
@@ -55,14 +59,14 @@
             <div class="col-md-10">
               <div role="toolbar" class="btn-toolbar operator_button">
                 <div class="btn-group btn-group-sm">
-                  <button aria-label="Left Align" class="btn btn-default" type="button"><span aria-hidden="true" class="glyphicon glyphicon-copy"></span> 复制</button>
-                  <button aria-label="Center Align" class="btn btn-default" type="button"><span aria-hidden="true" class="glyphicon glyphicon-pencil"></span> 新增</button>
-                  <button aria-label="Right Align" class="btn btn-default" type="button"><span aria-hidden="true" class="glyphicon glyphicon-edit"></span> 修改</button>
-                  <button aria-label="Justify" class="btn btn-default" type="button"><span aria-hidden="true" class="glyphicon glyphicon-eye-open"></span> 查看</button>
-                  <button aria-label="Left Align" class="btn btn-default" type="button"><span aria-hidden="true" class="glyphicon glyphicon-search"></span> 查询</button>
-                  <button aria-label="Center Align" class="btn btn-default" type="button"><span aria-hidden="true" class="glyphicon glyphicon-ok"></span> 审核</button>
-                  <button aria-label="Right Align" class="btn btn-default" type="button"><span aria-hidden="true" class="glyphicon glyphicon-floppy-remove"></span> 取消</button>
-                  <button aria-label="Justify" class="btn btn-default" type="button"><span aria-hidden="true" class="glyphicon glyphicon-remove"></span> 删除</button>
+                  <button aria-label="Left Align" class="btn btn-default  operator-button" data-opername="copy" type="button"><span aria-hidden="true" class="glyphicon glyphicon-copy"></span> 复制</button>
+                  <button aria-label="Center Align" class="btn btn-default operator-button" data-opername="add" type="button"><span aria-hidden="true" class="glyphicon glyphicon-pencil"></span> 新增</button>
+                  <button aria-label="Right Align" class="btn btn-default operator-button" data-opername="edit" type="button"><span aria-hidden="true" class="glyphicon glyphicon-edit"></span> 修改</button>
+                  <button aria-label="Justify" class="btn btn-default operator-button" data-opername="look" type="button"><span aria-hidden="true" class="glyphicon glyphicon-eye-open"></span> 查看</button>
+                  <button aria-label="Left Align" class="btn btn-default operator-button" data-opername="search" type="button"><span aria-hidden="true" class="glyphicon glyphicon-search"></span> 查询</button>
+                  <button aria-label="Center Align" class="btn btn-default operator-button" data-opername="audit" type="button"><span aria-hidden="true" class="glyphicon glyphicon-ok"></span> 审核</button>
+                  <button aria-label="Right Align" class="btn btn-default operator-button" data-opername="cancle" type="button"><span aria-hidden="true" class="glyphicon glyphicon-floppy-remove"></span> 取消</button>
+                  <button aria-label="Justify" class="btn btn-default operator-button" data-opername="remove" type="button"><span aria-hidden="true" class="glyphicon glyphicon-remove"></span> 删除</button>
                 </div>
               </div>
   
@@ -72,6 +76,7 @@
                   <thead>
                     <tr>
                       <th>#</th>
+                      <th width="50">选择</th>
                       <th>Table heading</th>
                       <th>Table heading</th>
                       <th>Table heading</th>
@@ -82,8 +87,9 @@
                   </thead>
                   <tbody>
                     {% for item in list %}
-                    <tr>
+                    <tr class="table-row" data-id="{{item['id']}}">
                       <th scope="row">{{item['id']}}</th>
+                      <td><input type="radio" name="active_radio" style="width:30px;" autocomplete="off"/></td>
                       <td>{{item['name']}}</td>
                       <td>Table cell</td>
                       <td>Table cell</td>
@@ -95,12 +101,52 @@
                   </tbody>
                 </table>
               </div>
-
+              
+              {% if page is defined %}  
+              <nav>
+                <ul class="pagination">
+                {% if page.current == 1 %}
+                    <li class="disabled" a href="javascript:;" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+                    {% else%}
+                    <li><a href="/index/index/page/{{page.before}}#footerPageNav" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+                {%endif%}
+                    
+                  
+                {%for code in page.baiduCode %}
+                    {% if code == page.current %}
+                    <li class="active"><a href="javascript:;">{{code}} <span class="sr-only">(current)</span></a></li>
+                    {%else%}
+                    <li><a href="/index/index/page/{{code}}#footerPageNav">{{code}}</a></li>
+                    {% endif %}
+                {% endfor %}
+                  
+                {% if page.current == page.totalPages %}
+                    <li class="disabled">
+                        <a href="javascript:;" aria-label="Next">
+                          <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                
+                {%else%}
+                    <li>
+                        <a href="/index/index/page/{{page.next}}#footerPageNav" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                {%endif%}
+                  
+                </ul>
+              </nav>
+              {%endif%}
+              <a name="footerPageNav"></a>
             </div>
         </div>
 
     </div>
     <script src="/static/bootstrap3.3.5/js/jquery1.11.3.min.js"></script>
     <script src="/static/bootstrap3.3.5/js/bootstrap.min.js"></script>
+    <script src="/static/artdialog/dialog-min.js"></script>
+    <script src="/static/js/order.js"></script>
+    
   </body>
 </html>

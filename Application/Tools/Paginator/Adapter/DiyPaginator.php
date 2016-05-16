@@ -1,5 +1,5 @@
 <?php
-namespace Wshop\Tools\Paginator\Adapter;
+namespace MShop\Tools\Paginator\Adapter;
 class DiyPaginator {
 
 	public $count = 0;
