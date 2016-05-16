@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MShop云商管理系统-演示</title>
+    <link href="/static/bootstrap3.3.5/css/bootstrap.min.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+      <script src="/static/bootstrap3.3.5/js/html5shiv3.7.2.min.js"></script>
+      <script src="/static/bootstrap3.3.5/js/respond1.4.2.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12" style="height:100px;background:#ff401c">
+                <div class="row">
+                     <div class="col-md-2"></div>
+                     <div class="col-md-10">
+                         <span style="color:white;font-size:36px;line-height: 100px;">MShop云商管理系统</span>
+                     </div>
+                </div>
+            </div>
+        </div>
+        <div class="row"><p></p></div>
+        <div class="row">
+            <div class="col-md-2">
+                  <div role="tablist" class="panel-group">
+                    <div class="panel panel-default">
+                      <div id="collapseListGroupHeading1" role="tab" class="panel-heading">
+                        <h4 class="panel-title">
+                          <a aria-controls="collapseListGroup1" aria-expanded="true" href="#collapseListGroup1" data-toggle="collapse" role="button" class="">
+                            <span aria-hidden="true" class="glyphicon glyphicon-sort-by-order"></span> 订单管理
+                          </a>
+                        </h4>
+                      </div>
+
+                      <div aria-labelledby="collapseListGroupHeading1" role="tabpanel" class="panel-collapse collapse in" id="collapseListGroup1" aria-expanded="true" style="">
+                        <ul class="list-group">
+                          <li class="list-group-item">
+                          <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>    
+                          全部订单列表</li>
+
+
+                          <li class="list-group-item"><span class="glyphicon glyphicon-hourglass" aria-hidden="true"></span>  待处理列表</li>
+                          <li class="list-group-item">
+<span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span> 
+                          已处理订单列表</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+            </div>
+            <div class="col-md-10">
+              <div role="toolbar" class="btn-toolbar operator_button">
+                <div class="btn-group btn-group-sm">
+                  <button aria-label="Left Align" class="btn btn-default" type="button"><span aria-hidden="true" class="glyphicon glyphicon-copy"></span> 复制</button>
+                  <button aria-label="Center Align" class="btn btn-default" type="button"><span aria-hidden="true" class="glyphicon glyphicon-pencil"></span> 新增</button>
+                  <button aria-label="Right Align" class="btn btn-default" type="button"><span aria-hidden="true" class="glyphicon glyphicon-edit"></span> 修改</button>
+                  <button aria-label="Justify" class="btn btn-default" type="button"><span aria-hidden="true" class="glyphicon glyphicon-eye-open"></span> 查看</button>
+                  <button aria-label="Left Align" class="btn btn-default" type="button"><span aria-hidden="true" class="glyphicon glyphicon-search"></span> 查询</button>
+                  <button aria-label="Center Align" class="btn btn-default" type="button"><span aria-hidden="true" class="glyphicon glyphicon-ok"></span> 审核</button>
+                  <button aria-label="Right Align" class="btn btn-default" type="button"><span aria-hidden="true" class="glyphicon glyphicon-floppy-remove"></span> 取消</button>
+                  <button aria-label="Justify" class="btn btn-default" type="button"><span aria-hidden="true" class="glyphicon glyphicon-remove"></span> 删除</button>
+                </div>
+              </div>
+  
+              <p></p>
+              <div class="table-responsive">
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Table heading</th>
+                      <th>Table heading</th>
+                      <th>Table heading</th>
+                      <th>Table heading</th>
+                      <th>Table heading</th>
+                      <th>Table heading</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for item in list %}
+                    <tr>
+                      <th scope="row">{{item['id']}}</th>
+                      <td>{{item['name']}}</td>
+                      <td>Table cell</td>
+                      <td>Table cell</td>
+                      <td>Table cell</td>
+                      <td>Table cell</td>
+                      <td>Table cell</td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+
+            </div>
+        </div>
+
+    </div>
+    <script src="/static/bootstrap3.3.5/js/jquery1.11.3.min.js"></script>
+    <script src="/static/bootstrap3.3.5/js/bootstrap.min.js"></script>
+  </body>
+</html>
