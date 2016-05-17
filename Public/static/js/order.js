@@ -41,17 +41,32 @@
             console.log(tableInfo.currentActiveId);
         };
         operator.audit = function() {
-                var d = dialog({
-                    width:"200",
-                    title: '订单审核',
-                    content: '<textarea>演示-审核通过</textarea>',
-                    okValue:"确定",
-                    ok: function () {
-                        this.close();
-                        this.remove();
+            dialog({
+                title:"订单审核",
+                content:'<textarea name="audit_remark" class="audit_remark"></textarea>',
+                button: [
+                    {
+                        value: '审核通过',
+                        callback: function () {
+                            if(!$(".audit_remark").val()) {
+                                dialog({"content":"请填写备注","id":"12343","title":"提醒"}).showModal();
+                                return false;
+                            }
+                        this.content('审核通过成功');
+                            return false;
+                        },
+                        autofocus: false
+                    },
+                    {
+                        value: '审核拒绝',
+                        callback: function () {
+                            this.content('审核拒绝成功');
+                            return  false;
+                        },
+                        autofocus: false
                     }
-                });
-                d.showModal();
+                ]
+            }).showModal();
         };
         operator.cancle = function() {
             console.log(tableInfo.currentActiveId);
