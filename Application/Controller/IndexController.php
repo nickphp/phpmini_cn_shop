@@ -24,4 +24,10 @@ class IndexController extends Controller {
         $this->view->page = $oPage;
     }
    
+    
+    public function testAction()
+    {
+        $remark = $this->request->getPost('remark');
+       echo json_encode(array('remark'=>'审核成功','id'=>100));
+    }
 }

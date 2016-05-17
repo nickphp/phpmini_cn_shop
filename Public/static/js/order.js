@@ -41,31 +41,29 @@
             console.log(tableInfo.currentActiveId);
         };
         operator.audit = function() {
-            dialog({
+            var d = dialog({
                 title:"订单审核",
-                content:'<textarea name="audit_remark" class="audit_remark"></textarea>',
-                button: [
-                    {
-                        value: '审核通过',
-                        callback: function () {
-                            if(!$(".audit_remark").val()) {
-                                dialog({"content":"请填写备注","id":"12343","title":"提醒"}).showModal();
-                                return false;
-                            }
-                        this.content('审核通过成功');
-                            return false;
-                        },
-                        autofocus: false
-                    },
-                    {
-                        value: '审核拒绝',
-                        callback: function () {
-                            this.content('审核拒绝成功');
-                            return  false;
-                        },
-                        autofocus: false
+                content:'<textarea class="form-control audit_remark" rows="3"></textarea>',
+                okValue: "确定",
+                ok:function () {
+                    var remark = $(".audit_remark").val();
+                    if(!remark) {
+                        dialog({"title":"提醒","content":"请填写备注","width":"100"}).showModal();
+                        return false;
                     }
-                ]
+                    $.ajax({
+                       url:"/index/test",
+                       dataType:"json",
+                       type:"post",
+                       data:{"remark":remark},
+                       success:function(data)
+                       {
+                           var tmp = $(".active_on").find("td").eq(1).text();
+                           $(".active_on").find("td").eq(1).html(tmp + ' ' + '<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>');
+                           dialog({"title":"响应消息","content":data.remark,"width":"100"}).showModal();
+                       }
+                    });
+                }
             }).showModal();
         };
         operator.cancle = function() {
