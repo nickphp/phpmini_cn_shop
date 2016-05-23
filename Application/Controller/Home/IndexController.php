@@ -10,6 +10,7 @@ class IndexController extends HomeController {
     
     public function testAction()
     {
-        echo 'test';
+        $a = $this->getService('Home','Home');
+        $a->getOne();
     }
 }
