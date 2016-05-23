@@ -11,6 +11,7 @@
             "MShop\Controller" => WEB_ROOT . $config->application->controllerDir, //控制器层
             "MShop\Model"      => WEB_ROOT . $config->application->modelDir,      //模型层
             "MShop\Tools"      => WEB_ROOT . $config->application->toolsDir,      //工具层
+            "MShop\Service"    => WEB_ROOT . $config->application->ServiceDir,      //工具层
         )
     )->register();
 
