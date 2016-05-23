@@ -2,7 +2,7 @@
 namespace MShop\Controller\Home;
 use MShop\Controller\Common\HomeController;
 class IndexController extends HomeController {
-
+    
     public function indexAction()
     {
         $this->view->pick('Home/Index/index');
@@ -10,5 +10,11 @@ class IndexController extends HomeController {
     
     public function testAction()
     {
+        echo 'home test';
+    }
+    
+    public function abcAction()
+    {
+        echo 'home abc';
     }
 }

@@ -1,7 +1,7 @@
 <?php
-$di->set('dispatcher', function () use($config) {
+$di->set('dispatcher', function () use($config, $di) {
     $eventsManager = new \Phalcon\Events\Manager();
-    //$eventsManager->attach('dispatch', new PhpMini\Tools\Plugin\CacheEnablerPlugin());
+    $eventsManager->attach('dispatch', new MShop\Tools\Plugin\SecurityPlugin($di));
     $eventsManager->attach("dispatch:beforeDispatchLoop", function($event, $dispatcher) {
         $keyParams = array();
         $params    = $dispatcher->getParams();
@@ -29,6 +29,7 @@ $di->set('dispatcher', function () use($config) {
         }
         $dispatcher->setParams($keyParams);
     });
+    
     $dispatcher = new \Phalcon\Mvc\Dispatcher();
     $dispatcher->setEventsManager($eventsManager);
     return $dispatcher;

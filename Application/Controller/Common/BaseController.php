@@ -3,6 +3,10 @@ namespace MShop\Controller\Common;
 use Phalcon\Mvc\Controller;
 class BaseController extends Controller {
     public $serviceInstace = [];//服务实例
+    public function initialize()
+    {
+
+    }
     
     /**
      * 获取服务实例
