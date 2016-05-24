@@ -75,5 +75,6 @@
         $(".operator-button").bind("click",function(){
             operator.execOperator(this);
         });
+                
     });
 })(window);
