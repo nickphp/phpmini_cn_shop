@@ -49,4 +49,6 @@ ul.main-menu li a:hover{background-color:#F7F7F7;}
     transition: .3s;
 }
 
+.panel-group .list-group-item:hover{background-color:#f8f8f8;}
+
 
