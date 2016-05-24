@@ -5,6 +5,11 @@ class IndexController extends HomeBaseController {
     
     public function indexAction()
     {
+        $hs = $this->getService('Home', 'Home');
+        $hs->abc();
+
+
+        exit;
         $this->view->pick('Home/Index/index');
     }
     

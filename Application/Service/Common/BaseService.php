@@ -2,7 +2,7 @@
 namespace MShop\Service\Common;
 use Phalcon\DI;
 class BaseService {
-    protected $di;
+    public $di;
     public $modelInstace = [];//服务实例
     public function __construct()
     {
