@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MShop云商管理系统-添加权限</title>
+    <link href="/static/bootstrap3.3.5/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/artdialog/ui-dialog.css">
+    <link rel="stylesheet" href="/static/css/left.nav.main.css">
+    <!--[if lt IE 9]>
+      <script src="/static/bootstrap3.3.5/js/html5shiv3.7.2.min.js"></script>
+      <script src="/static/bootstrap3.3.5/js/respond1.4.2.min.js"></script>
+    <![endif]-->
+    <style type="text/css">
+        .table-line-bg {background:#F2F2F2;}
+    </style>
+  </head>
+  <body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12" style="height:100px;background:#ff401c">
+                <div class="row">
+                     <div class="col-md-2"></div>
+                     <div class="col-md-10">
+                         <span style="color:white;font-size:36px;line-height: 100px;">MShop云商管理系统</span>
+                     </div>
+                </div>
+            </div>
+        </div>
+        <div class="row"><p></p></div>
+        <div class="row">
+            <div class="col-md-2">
+               {{partial("Common/left_nav_main")}}
+            </div>
+            <div class="col-md-10">
+              <div role="toolbar" class="btn-toolbar operator_button">
+                <div class="btn-group btn-group-sm">
+                  <button aria-label="Left Align" class="btn btn-default type="button"><span aria-hidden="true" class="glyphicon glyphicon-copy"></span> 权限全部生成入库</button>
+                </div>
+              </div>
+                
+              <p></p>
+              <div class="table-responsive">
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th>权限令牌</th>
+                      <th>控制器名称</th>
+                      <th>名字空间</th>
+                      <th>权限是否生成</th>
+                      <th>操作</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% if auth is empty %}
+                    {% else %}
+                    {% for item in auth['auth_list'] %}
+                    <tr class="table-row">
+                      <td>{{item}}</td>
+                      <td>{{auth['controller_name'][0]}}</td>
+                      <td>{{auth['space_name'][0]}}</td>
+                      <td>否</td>
+                      <td>
+                        <div role="toolbar" class="btn-toolbar operator_button">
+                            <div class="btn-group btn-group-sm">
+                                <button aria-label="Left Align" class="btn btn-default import_auth" type="button">
+                                    <span aria-hidden="true" class="glyphicon glyphicon-import"></span> 导入权限
+                                </button>
+                                <button aria-label="Left Align" class="btn btn-default remove_auth" type="button">
+                                    <span aria-hidden="true" class="glyphicon glyphicon-trash"></span> 删除权限 
+                                </button>
+                            </div>
+                        </div>
+                      </td>
+                    </tr>
+                    {% endfor %}
+                    {% endif %}
+                  </tbody>
+                </table>
+              </div>
+            
+            </div>
+        </div>
+
+    </div>
+    <script src="/static/bootstrap3.3.5/js/jquery1.11.3.min.js"></script>
+    <script src="/static/bootstrap3.3.5/js/bootstrap.min.js"></script>
+    <script src="/static/artdialog/dialog-min.js"></script>
+    <script src="/static/js/order.js"></script>
+  </body>
+</html>

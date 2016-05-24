@@ -22,6 +22,7 @@ class IndexController extends Controller {
         }
         $this->view->list = $array;
         $this->view->page = $oPage;
+        $this->view->pick("index/index");
     }
    
     

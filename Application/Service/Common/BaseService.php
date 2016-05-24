@@ -27,4 +27,30 @@ class BaseService {
         }
         return $this->modelInstace[$md5Name] = new $name();
     }
+    
+    /**
+     * 获取find对象
+     * @param type $modelGroupName
+     * @param type $modelName
+     * @param type $params
+     * @return type
+     */
+    public static function find($modelGroupName, $modelName, $params)
+    {
+        $name = "\MShop\Model\\{$modelGroupName}\\".$modelName;
+        return $name::find($params);
+    }
+    
+     /**
+     * 获取findFirst对象
+     * @param type $modelGroupName
+     * @param type $modelName
+     * @param type $params
+     * @return type
+     */
+    public static function findFirst($modelGroupName, $modelName, $params)
+    {
+        $name = "\MShop\Model\\{$modelGroupName}\\".$modelName;
+        return $name::findFirst($params);
+    }
 }

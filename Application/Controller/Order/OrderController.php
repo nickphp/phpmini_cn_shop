@@ -72,7 +72,7 @@ class OrderController extends OrderBaseController {
     /**
      * 按照订单主键ID查询订单
      */
-    public function getOrderOneByID()
+    public function getOrderOneByIDAction()
     {
         
     }
@@ -80,7 +80,7 @@ class OrderController extends OrderBaseController {
     /**
      * 按照订单编号查询订单
      */
-    public function getOrderOneBySn()
+    public function getOrderOneBySnAction()
     {
         
     }
@@ -88,7 +88,7 @@ class OrderController extends OrderBaseController {
     /**
      * 获取订单列表
      */
-    public function getOrderList()
+    public function getOrderListAction()
     {
         
     }
@@ -96,15 +96,16 @@ class OrderController extends OrderBaseController {
     /**
      * 根据订单号获取订单详情
      */
-    public function getOrdreDetailsById()
+    public function getOrdreDetailsByIdAction()
     {
         
     }
     
     /**
+     * @auth 获取订单明细 @@
      * 根据订单编号获取订单详情
      */
-    public function getOrderDetailsBySn()
+    public FUNCTION getOrderDetailsBySnAction()
     {
         
     }

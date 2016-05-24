@@ -75,6 +75,62 @@
         $(".operator-button").bind("click",function(){
             operator.execOperator(this);
         });
+        
+        
+        $(".import_auth").bind("click",function(){
+            var PostData = {};
+            PostData.auth_action = $(this).parents(".table-row").find("td").eq(0).text();
+            PostData.controller_name = $(this).parents(".table-row").find("td").eq(1).text();
+            PostData.space_name = $(this).parents(".table-row").find("td").eq(2).text();
+            var _this = this;
+            $.ajax({
+                url:"/Home/Index/addAuthPost",
+                dataType:"json",
+                type:"post",
+                data:PostData,
+                success:function(data)
+                {
+                    if (data.status == 1) {
+                        $(_this).parents(".table-row").find("td").eq(3).text("是【权限导入成功】");
+                        $(_this).hide();
+                        $(_this).parent().find(".remove_auth").show();
+                    } else {
+                         dialog({"title":"操作提醒！","content":data.message,"width":"200"}).showModal();
+                    }
+                },
+                error:function(){
+                    dialog({"title":"操作提醒！","content":"接口通信异常","width":"200"}).showModal();
+                }
+            });
+        });
+        
+        $(".remove_auth").bind("click",function(){            
+            var PostData = {};
+            PostData.auth_action = $(this).parents(".table-row").find("td").eq(0).text();
+            PostData.controller_name = $(this).parents(".table-row").find("td").eq(1).text();
+            PostData.space_name = $(this).parents(".table-row").find("td").eq(2).text();
+            var _this = this;
+            $.ajax({
+                url:"/Home/Index/removeAuthPost",
+                dataType:"json",
+                type:"post",
+                data:PostData,
+                success:function(data)
+                {
+                    if (data.status == 1) {
+                        $(_this).parents(".table-row").find("td").eq(3).text("否【权限删除成功】");
+                        $(_this).hide();
+                        $(_this).parent().find(".import_auth").show();
+                    } else {
+                         dialog({"title":"操作提醒！","content":data.message,"width":"200"}).showModal();
+                    }
+                },
+                error:function(){
+                    dialog({"title":"操作提醒！","content":"接口通信异常","width":"200"}).showModal();
+                }
+            });
+        });
+
                 
     });
 })(window);
