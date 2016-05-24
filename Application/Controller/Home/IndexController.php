@@ -1,7 +1,7 @@
 <?php
 namespace MShop\Controller\Home;
-use MShop\Controller\Common\HomeController;
-class IndexController extends HomeController {
+use MShop\Controller\Common\HomeBaseController;
+class IndexController extends HomeBaseController {
     
     public function indexAction()
     {

@@ -20,6 +20,14 @@
         "params"    => 3,
     ));
     
+     //定义访问Order分组的规则
+    $router->add("/order\/?([a-zA-Z0-9_-]*)\/?([a-zA-Z0-9_]*)/:params", array(
+        "namespace" => 'MShop\Controller\Order',
+        'controller' => 1,
+        'action'     => 2,
+        "params"    => 3,
+    ));
+    
     //  $router->add("/shop\/?([a-zA-Z0-9_-]*)\/?([a-zA-Z0-9_]*)/:params", array(
     //     "namespace" => 'PhpMini\Controller\Shop',
     //     'controller' => 1,

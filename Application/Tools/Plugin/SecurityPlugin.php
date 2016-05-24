@@ -17,14 +17,15 @@ class SecurityPlugin extends Plugin
  
     private function getAcl()
     {
-        if (!isset($this->persistent->acl))
+        if (isset($this->persistent->acl))
         {
             //实例化ACL
             $acl = new AclMemory();
             
             //设置默认权限(禁止)
-            $acl->setDefaultAction(\Phalcon\Acl::DENY);
- 
+            //$acl->setDefaultAction(\Phalcon\Acl::DENY);
+            $acl->setDefaultAction(\Phalcon\Acl::ALLOW);
+            
             //添加角色
             $roles = array(
                 'Guests' => new \Phalcon\Acl\Role('Guests'),
@@ -38,6 +39,7 @@ class SecurityPlugin extends Plugin
             $AllResources = array(
                 'GuestsResources' => array(
                     'MShop\Controller\Home\index'  => array('index','test'),
+                    'MShop\Controller\Order\order'  => array('abc'),
                 ),
             );
             //添加资源并授权对应权限给角色
