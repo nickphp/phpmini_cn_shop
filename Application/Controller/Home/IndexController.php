@@ -34,7 +34,27 @@ class IndexController extends HomeBaseController {
         $auth['auth_list'] = $arr[1];
         $auth['controller_name'] = $arr2[1];
         $auth['space_name'] = $arr3[1];
+        
+        $data = [
+            'controller_name'=> trim($auth['controller_name'][0]),
+            'space_name'=>trim($auth['space_name'][0]),
+        ];
+        
+        $hs = $this->getService('Home', 'Home');
+        $controllerAuthList = $hs->getControllerAuthList($data);
+        
+        $diffAuth  = [];
+        foreach($auth['auth_list'] as $k => $v) {
+            $diffAuth[$v] = 0;
+            foreach($controllerAuthList as $k1 => $v1) {
+                if ($v == $v1['action_name']) {
+                    $diffAuth[$v] = 1;
+                    break;
+                }
+            }
+        } 
         $this->view->auth = $auth;
+        $this->view->diffAuth = $diffAuth;
         $this->view->pick("/Home/Index/auth_create");
     }
     
@@ -56,6 +76,12 @@ class IndexController extends HomeBaseController {
         $data['space_name']      = trim($this->request->getPost("space_name"));
         $data['action_name']     = trim($this->request->getPost('auth_action'));
         $hs = $this->getService('Home', 'Home');
+        if ($hs->checkOneAuth($data)) {
+            $returnData['status'] = 0;
+            $returnData['message'] = '导入的权限已存在';
+            echo json_encode($returnData);exit;
+        }
+        
         $res = $hs->addAuth($data);
         $returnData = []; 
         if ($res) {

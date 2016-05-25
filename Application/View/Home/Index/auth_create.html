@@ -60,16 +60,35 @@
                       <td>{{item}}</td>
                       <td>{{auth['controller_name'][0]}}</td>
                       <td>{{auth['space_name'][0]}}</td>
-                      <td>否</td>
+                      <td>
+                          {% if diffAuth[item] is 1 %}
+                          <span style="color:#434343;">
+                          <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                          </span>
+                          {% else %}
+                           <span style="color:#ED0000;">
+                          <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                           </span>
+                          {% endif %}
+                      </td>
                       <td>
                         <div role="toolbar" class="btn-toolbar operator_button">
                             <div class="btn-group btn-group-sm">
+                                {% if diffAuth[item] is 0 %}
                                 <button aria-label="Left Align" class="btn btn-default import_auth" type="button">
                                     <span aria-hidden="true" class="glyphicon glyphicon-import"></span> 导入权限
                                 </button>
-                                <button aria-label="Left Align" class="btn btn-default remove_auth" type="button">
+                                <button aria-label="Left Align" class="btn btn-danger remove_auth" type="button" style="display:none">
                                     <span aria-hidden="true" class="glyphicon glyphicon-trash"></span> 删除权限 
                                 </button>
+                                {% else %}
+                                <button aria-label="Left Align" class="btn btn-default import_auth" type="button" style="display:none">
+                                    <span aria-hidden="true" class="glyphicon glyphicon-import"></span> 导入权限
+                                </button>
+                                <button aria-label="Left Align" class="btn btn-danger remove_auth" type="button">
+                                    <span aria-hidden="true" class="glyphicon glyphicon-trash"></span> 删除权限 
+                                </button>
+                                {% endif %}
                             </div>
                         </div>
                       </td>

@@ -17,7 +17,7 @@ class SecurityPlugin extends Plugin
  
     private function getAcl()
     {
-        if (isset($this->persistent->acl))
+        if (!isset($this->persistent->acl))
         {
             //实例化ACL
             $acl = new AclMemory();

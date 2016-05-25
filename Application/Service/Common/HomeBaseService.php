@@ -9,6 +9,7 @@ class HomeBaseService extends BaseService{
     public function testModelsManager()
     {
         $manager = $this->di->get("modelsManager");
+        $manager->executeQuery("select * from \MShop\Model\Shop\Orders");
     }
     
     public function abc()

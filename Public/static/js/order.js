@@ -91,7 +91,12 @@
                 success:function(data)
                 {
                     if (data.status == 1) {
-                        $(_this).parents(".table-row").find("td").eq(3).text("是【权限导入成功】");
+                        
+                        var html = '<span style="color:#434343;">'+
+                        '<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>'+
+                        '</span>';
+                        
+                        $(_this).parents(".table-row").find("td").eq(3).html(html);
                         $(_this).hide();
                         $(_this).parent().find(".remove_auth").show();
                     } else {
@@ -118,7 +123,10 @@
                 success:function(data)
                 {
                     if (data.status == 1) {
-                        $(_this).parents(".table-row").find("td").eq(3).text("否【权限删除成功】");
+                         var html = '<span style="color:#ED0000;">'+
+                        '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>'+
+                        '</span>';
+                        $(_this).parents(".table-row").find("td").eq(3).html(html);
                         $(_this).hide();
                         $(_this).parent().find(".import_auth").show();
                     } else {
@@ -129,8 +137,6 @@
                     dialog({"title":"操作提醒！","content":"接口通信异常","width":"200"}).showModal();
                 }
             });
-        });
-
-                
+        });  
     });
 })(window);
