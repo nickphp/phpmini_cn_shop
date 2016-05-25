@@ -97,6 +97,7 @@
                         '</span>';
                         
                         $(_this).parents(".table-row").find("td").eq(3).html(html);
+                        $(_this).parents(".table-row").attr("data-auth_create","1");
                         $(_this).hide();
                         $(_this).parent().find(".remove_auth").show();
                     } else {
@@ -127,6 +128,7 @@
                         '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>'+
                         '</span>';
                         $(_this).parents(".table-row").find("td").eq(3).html(html);
+                        $(_this).parents(".table-row").attr("data-auth_create","0");
                         $(_this).hide();
                         $(_this).parent().find(".import_auth").show();
                     } else {
@@ -138,5 +140,103 @@
                 }
             });
         });  
+        
+        $(".import_all_auth").bind("click",function(){
+            var PostData = {};
+                PostData.data = [];
+            var i = 0;
+            $(".table-row").each(function(index,el){
+                var auth_create = $(el).attr('data-auth_create');
+                if (auth_create == 0) {
+                    var tmpData = {}; 
+                    tmpData.action_name = $(el).find("td").eq("0").text();
+                    tmpData.controller_name = $(el).find("td").eq("1").text();
+                    tmpData.space_name = $(el).find("td").eq("2").text();
+                    PostData.data[i] = tmpData;
+                    i++;
+                }
+            });
+            if (PostData.data.length == 0) {
+                dialog({"title":"操作提醒！","content":"没有权限需要导入","width":"200"}).showModal();
+                return false;
+            }
+            $.ajax({
+                url:"/Home/Index/addAllAuthPost",
+                dataType:"json",
+                type:"post",
+                data:PostData,
+                success:function(data)
+                {
+                    if (data.status == 1) {
+                        $(".table-row").each(function(index,el){
+                            var html = '<span style="color:#434343;">'+
+                            '<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>'+
+                            '</span>';
+                            $(el).attr('data-auth_create',"1");
+                            $(el).find("td").eq(3).html(html);
+                            $(el).find(".import_auth").hide();
+                            $(el).find(".remove_auth").show();
+                        });
+                        dialog({"title":"操作提醒！","content":data.message,"width":"200"}).showModal();
+                    } else {
+                        dialog({"title":"操作提醒！","content":data.message,"width":"200"}).showModal();
+                    }
+                },
+                error:function(){
+                    dialog({"title":"操作提醒！","content":"接口通信异常","width":"200"}).showModal();
+                }
+            });
+        });
+        
+        //删除所有权限
+        $(".remove_all_auth").bind("click",function(){
+            var PostData = {};
+                PostData.data = [];
+            var i = 0;
+            $(".table-row").each(function(index,el){
+                var auth_create = $(el).attr('data-auth_create');
+                if (auth_create == '1') {
+                    var tmpData = {}; 
+                    tmpData.action_name = $(el).find("td").eq("0").text();
+                    tmpData.controller_name = $(el).find("td").eq("1").text();
+                    tmpData.space_name = $(el).find("td").eq("2").text();
+                    PostData.data[i] = tmpData;
+                    i++;
+                }
+            });
+            
+            if (PostData.data.length == 0) {
+                dialog({"title":"操作提醒！","content":"没有权限需要删除","width":"200"}).showModal();
+                return false;
+            }
+
+            $.ajax({
+                url:"/Home/Index/removeAllAuthPost",
+                dataType:"json",
+                type:"post",
+                data:PostData,
+                success:function(data)
+                {
+                    if (data.status == 1) {
+                        $(".table-row").each(function(index,el){
+                            var html = '<span style="color:#ED0000;">'+
+                            '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>'+
+                            '</span>';
+                            $(el).find("td").eq(3).html(html);
+                            $(el).find(".remove_auth").hide();
+                            $(el).find(".import_auth").show();
+                            $(el).attr('data-auth_create',"0");
+                        });
+                        dialog({"title":"操作提醒！","content":data.message,"width":"200"}).showModal();
+                    } else {
+                        dialog({"title":"操作提醒！","content":data.message,"width":"200"}).showModal();
+                    }
+                },
+                error:function(){
+                    dialog({"title":"操作提醒！","content":"接口通信异常","width":"200"}).showModal();
+                }
+            });
+        });
+        
     });
 })(window);

@@ -34,9 +34,16 @@
                {{partial("Common/left_nav_main")}}
             </div>
             <div class="col-md-10">
-              <div role="toolbar" class="btn-toolbar operator_button">
+              <div role="toolbar" class="btn-toolbar">
                 <div class="btn-group btn-group-sm">
-                  <button aria-label="Left Align" class="btn btn-default type="button"><span aria-hidden="true" class="glyphicon glyphicon-copy"></span> 权限全部生成入库</button>
+                  <button aria-label="Left Align" class="btn btn-default import_all_auth" type="button">
+                          <span aria-hidden="true" class="glyphicon glyphicon-import"></span> 
+                      权限全部生成入库
+                  </button>
+                  <button aria-label="Left Align" class="btn btn-default remove_all_auth" type="button">
+                          <span aria-hidden="true" class="glyphicon glyphicon-remove"></span> 
+                      删除全部权限
+                  </button>
                 </div>
               </div>
                 
@@ -56,7 +63,7 @@
                     {% if auth is empty %}
                     {% else %}
                     {% for item in auth['auth_list'] %}
-                    <tr class="table-row">
+                    <tr class="table-row" data-auth_create="{{diffAuth[item]}}">
                       <td>{{item}}</td>
                       <td>{{auth['controller_name'][0]}}</td>
                       <td>{{auth['space_name'][0]}}</td>

@@ -5,11 +5,6 @@ class IndexController extends HomeBaseController {
     
     public function indexAction()
     {
-        $hs = $this->getService('Home', 'Home');
-        $hs->abc();
-
-
-        exit;
         $this->view->pick('Home/Index/index');
     }
     
@@ -95,6 +90,43 @@ class IndexController extends HomeBaseController {
     }
     
     /**
+     * 导入权限
+     */
+    public function addAllAuthPostAction()
+    {
+        $returnData = []; 
+        $returnData['status'] = 0;
+        $returnData['message'] = "";
+        $data = $this->request->getPost("data");
+        if (empty($data)) {
+            $returnData['message'] = "没有获取到任何权限数据，请刷新页面再试！";
+           echo json_encode($returnData);exit;
+        }
+        $flag = 0;
+        foreach ($data as $k => $v) {
+            $mData = [];
+            $mData['controller_name'] = trim($v['controller_name']);
+            $mData['space_name']      = trim($v['space_name']);
+            $mData['action_name']     = trim($v['action_name']);
+            $hs = $this->getService('Home', 'Home',true);
+            if (!$hs->checkOneAuth($mData)) {
+                $hs->addAuth($mData);
+                $flag = 1;
+            }
+        }
+        if ($flag == 0) {
+            $returnData['status'] = 1;
+            $returnData['message'] = "全部权限导入失败,没有任何权限数据需要导入"; 
+        } else {
+            $returnData['status'] = 1;
+            $returnData['message'] = "全部权限导入成功"; 
+        }
+        echo json_encode($returnData);exit;
+    }
+    
+    
+    
+    /**
      * 删除权限
      */
     public function removeAuthPostAction()
@@ -113,7 +145,41 @@ class IndexController extends HomeBaseController {
             $returnData['status'] = 0;
             $returnData['message'] = '删除权限失败';
         }
-
+        echo json_encode($returnData);exit;
+    }
+    
+    
+    /**
+     * 删除所有权限
+     */
+    public function removeAllAuthPostAction()
+    {
+        $returnData = []; 
+        $returnData['status'] = 0;
+        $returnData['message'] = "";
+        $data = $this->request->getPost("data");
+        if (empty($data)) {
+            $returnData['message'] = "没有获取到任何权限数据，请刷新页面再试！";
+           echo json_encode($returnData);exit;
+        }
+        $flag = 0;
+        foreach ($data as $k => $v) {
+            $mData = [];
+            $mData['controller_name'] = trim($v['controller_name']);
+            $mData['space_name']      = trim($v['space_name']);
+            $mData['action_name']     = trim($v['action_name']);
+            $hs = $this->getService('Home', 'Home',true);
+            if ($hs->checkOneAuth($mData)) {
+                $hs->removeAuth($mData);
+                $flag = 1;
+            }
+        }
+        $returnData['status'] = 1;
+        $returnData['message'] = "全部权限删除成功"; 
+        if ($flag == 0) {
+            $returnData['status'] = 0;
+            $returnData['message'] = "没有任何权限需要删除"; 
+        }
         echo json_encode($returnData);exit;
     }
 }
