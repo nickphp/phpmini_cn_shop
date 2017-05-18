@@ -9,5 +9,5 @@ try {
 } catch(\Exception $e) {
     //捕获错误信息
     echo 'INFO: ',$e->getMessage(),'<br />';
-    echo 'LINE: ',$e->getLine();//
+    echo 'LINE: ',$e->getLine();////
 }
